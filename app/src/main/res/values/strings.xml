@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Widgets</string>
+    <string name="appwidget_text">Media widget</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_browser">Access your browser page</string>
+    <string name="app_widget_media">Access your musics</string>
+    <string name="app_widget_imageView">Access your images</string>
+    <string name="app_widget_description">Media player widget</string>
+    <string name="open_browser_button">Open Browser</string>
+    <string name="left_button">Left</string>
+    <string name="stop_play_button">stop_play</string>
+    <string name="right_button">right</string>
+    <string name="album_cover_image">Album cover</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="bar">seek</string>
+    <string name="bar_point">point</string>
+</resources>
