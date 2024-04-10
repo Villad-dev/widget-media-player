@@ -8,9 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
-import android.os.CountDownTimer
 import android.util.Log
-import android.widget.ProgressBar
 import android.widget.RemoteViews
 
 class MediaWidget : AppWidgetProvider() {
@@ -73,14 +71,9 @@ class MediaWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
-        Log.i(
-            "Message",
-            "$currentIndex Broadcast Received!!! ${intent.action} ${listMusic[currentIndex]}"
-        )
 
         when (intent.action) {
             "URL_ACTION" -> {
-                Log.i("Message", "URL_ACTION received $currentIndex")
                 openChromeWithUrl(context, listMusic[currentIndex].URL)
             }
 
@@ -88,7 +81,6 @@ class MediaWidget : AppWidgetProvider() {
                 if (mediaPlayer.isPlaying) {
                     mediaPlayer.stop()
                 }
-                Log.i("Message", "LEFT_ACTION received $currentIndex")
                 decrementIndex()
 
                 mediaPlayer = MediaPlayer.create(context, listMusic[currentIndex].musicID).also {
@@ -106,7 +98,6 @@ class MediaWidget : AppWidgetProvider() {
                 if (mediaPlayer.isPlaying) {
                     mediaPlayer.stop()
                 }
-                Log.i("Message", "RIGHT_ACTION received $currentIndex")
                 incrementIndex()
 
                 mediaPlayer =
@@ -132,19 +123,14 @@ class MediaWidget : AppWidgetProvider() {
 
             "PLAY_STOP_ACTION" -> {
                 if (mediaPlayer.isPlaying) {
-                    println("PLAYING")
                     mediaPlayer.pause()
                     myTimer.stopTimer()
                     updateWidgetImage(context, R.drawable.play, R.id.stopPlayButton)
                 } else {
-                    println("NOT PLAYING")
                     mediaPlayer.start()
                     myTimer.startTimer()
                     updateWidgetImage(context, R.drawable.pause_circle, R.id.stopPlayButton)
                 }
-
-                println("Progress: ${mediaPlayer.currentPosition}, ${mediaPlayer.duration} ${mediaPlayer.timestamp}")
-                Log.i("Message", "PLAY_STOP_ACTION received")
             }
         }
     }
@@ -203,7 +189,7 @@ class MediaWidget : AppWidgetProvider() {
         val timerViews = RemoteViews(context.packageName, R.layout.main_widget)
 
         myTimer = MyTimer(duration = mediaPlayer.duration.toLong(),
-            onTick = { progress ->
+            onTick = {
                 timerViews.setProgressBar(
                     R.id.progressBar,
                     mediaPlayer.duration,
@@ -211,21 +197,20 @@ class MediaWidget : AppWidgetProvider() {
                     false
                 )
                 appWidgetManager.updateAppWidget(appWidgetId, timerViews)
-                println("Progress: $progress%")
             }, onFinish = {
-                println("Timer finished!")
+
             })
 
-        ElementSetOnClickListener(context, "URL_ACTION", appWidgetId, views, R.id.imageView)
-        ElementSetOnClickListener(context, "LEFT_ACTION", appWidgetId, views, R.id.leftButton)
-        ElementSetOnClickListener(context, "RIGHT_ACTION", appWidgetId, views, R.id.rightButton)
-        ElementSetOnClickListener(context, "PLAY_STOP_ACTION", appWidgetId, views, R.id.stopPlayButton)
-        ElementSetOnClickListener(context, "RESET_ACTION", appWidgetId, views, R.id.resetButton)
+        elementSetOnClickListener(context, "URL_ACTION", appWidgetId, views, R.id.imageView)
+        elementSetOnClickListener(context, "LEFT_ACTION", appWidgetId, views, R.id.leftButton)
+        elementSetOnClickListener(context, "RIGHT_ACTION", appWidgetId, views, R.id.rightButton)
+        elementSetOnClickListener(context, "PLAY_STOP_ACTION", appWidgetId, views, R.id.stopPlayButton)
+        elementSetOnClickListener(context, "RESET_ACTION", appWidgetId, views, R.id.resetButton)
 
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 
-    private fun ElementSetOnClickListener(
+    private fun elementSetOnClickListener(
         context: Context,
         actionString: String,
         requestCode: Int,

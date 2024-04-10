@@ -14,4 +14,5 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="bar">seek</string>
     <string name="bar_point">point</string>
+    <string name="resetButton">reset button</string>
 </resources>
