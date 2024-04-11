@@ -1,4 +1,4 @@
-package com.example.widgets
+package com.example.widgets.repos
 
 class Music(var artistName: String,
             var songName: String,
@@ -7,7 +7,7 @@ class Music(var artistName: String,
             var URL: String) {
 
     override fun toString(): String {
-        println("name:${artistName} - ${songName} Id: ${musicID}, ImageId: ${imageID}, URL: ${URL}")
+        println("name:${this.artistName} - ${this.songName} Id: ${this.musicID}, ImageId: ${this.imageID}, URL: $URL")
         return super.toString()
     }
 }

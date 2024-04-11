@@ -50,7 +50,7 @@ class MediaProvider : AppWidgetProvider() {
 
         val views = RemoteViews(
             context.packageName,
-            R.layout.main_widget
+            R.layout.medium_media
         )
         views.setTextViewText(R.id.artist_name, artistName)
         views.setTextViewText(R.id.song_name, songName)
