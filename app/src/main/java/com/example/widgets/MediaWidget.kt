@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.util.Log
 import android.util.SizeF
 import android.widget.RemoteViews
-import com.example.widgets.repos.Music
 import com.example.widgets.repos.Playlist
 
 
@@ -95,57 +94,47 @@ class MediaWidget : AppWidgetProvider() {
             }
 
             "LEFT_ACTION" -> {
-                playlist = Playlist()/*if (mediaPlayer.isPlaying) {
-                    mediaPlayer.stop()
-                }*/
+                playlist = Playlist()
                 playlist.previousSong()
-                updateWidgetImage(
-                    context, R.drawable.play, R.id.stopPlayButton, playlist.getCurrentSong()
-                )
-                updateWidgetImage(
-                    context,
-                    playlist.getCurrentSong().imageID,
-                    R.id.imageView,
-                    playlist.getCurrentSong()
-                )
+                updateWidgetComponents(context)
             }
 
             "RIGHT_ACTION" -> {
-                playlist = Playlist()/*if (mediaPlayer.isPlaying) {
-                    mediaPlayer.stop()
-                }*/
+                playlist = Playlist()
                 playlist.nextSong()
-                updateWidgetImage(
-                    context, R.drawable.play, R.id.stopPlayButton, playlist.getCurrentSong()
-                )
-                updateWidgetImage(
-                    context,
-                    playlist.getCurrentSong().imageID,
-                    R.id.imageView,
-                    playlist.getCurrentSong()
-                )
+                updateWidgetComponents(context)
             }
 
-            "RESET_ACTION" -> {/*if (mediaPlayer.isPlaying) {
-                    mediaPlayer.stop()
-                    mediaPlayer.prepare()
-                    //myTimer.resetTimer()
-                    updateWidgetImage(context, R.drawable.play, R.id.stopPlayButton, song)
-                }*/
+            "RESET_ACTION" -> {
             }
 
-            "PLAY_STOP_ACTION" -> {/* if (mediaPlayer.isPlaying) {
-                    mediaPlayer.pause()
-                    //myTimer.stopTimer()
-                    updateWidgetImage(context, R.drawable.play, R.id.stopPlayButton, song)
-                } else {
-                    mediaPlayer.start()
-                    //myTimer.startTimer()
-                    updateWidgetImage(context, R.drawable.pause_circle, R.id.stopPlayButton, song)
-                }*/
+            "PLAY_STOP_ACTION" -> {
             }
         }
     }
+
+    private fun updateWidgetComponents(context: Context) {
+        val appWidgetManager = AppWidgetManager.getInstance(context)
+        val widgetIds = appWidgetManager.getAppWidgetIds(ComponentName(context, MediaWidget::class.java))
+
+        widgetIds.forEach { widgetId ->
+            val widgetOptions = appWidgetManager.getAppWidgetOptions(widgetId)
+            val minHeight = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT)
+
+            val remoteViews = when {
+                minHeight <= 57f -> buildView(context, playlist, R.layout.small_media)
+                minHeight <= 126f -> buildView(context, playlist, R.layout.medium_media)
+                else -> buildView(context, playlist, R.layout.large_media)
+            }
+
+            remoteViews.setTextViewText(androidx.core.R.id.text, context.getString(R.string.appwidget_text))
+            remoteViews.setTextViewText(R.id.artist_name, playlist.getCurrentSong().artistName)
+            remoteViews.setTextViewText(R.id.song_name, playlist.getCurrentSong().songName)
+
+            appWidgetManager.updateAppWidget(widgetId, remoteViews)
+        }
+    }
+
 
     private fun updateAppWidget(
         context: Context,
@@ -179,23 +168,6 @@ class MediaWidget : AppWidgetProvider() {
         views.setOnClickPendingIntent(elementID, actionOnClickPendingIntent)
     }
 
-    private fun updateWidgetImage(
-        context: Context, imageResource: Int, viewElement: Int, song: Music
-    ) {
-        val widgetManager = AppWidgetManager.getInstance(context)
-        val widgetIds =
-            widgetManager.getAppWidgetIds(ComponentName(context, MediaWidget::class.java))
-        val views = RemoteViews(context.packageName, R.layout.medium_media)
-
-        views.setTextViewText(R.id.artist_name, song.artistName)
-        views.setTextViewText(R.id.song_name, song.songName)
-        views.setImageViewResource(
-            viewElement, imageResource
-        )
-        for (widgetId in widgetIds) {
-            widgetManager.updateAppWidget(widgetId, views)
-        }
-    }
 
     private fun openChromeWithUrl(context: Context, url: String?) {
         url.let {

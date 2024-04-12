@@ -12,10 +12,8 @@
     android:targetCellHeight="2"
     android:minWidth="349dp"
     android:minHeight="102dp"
-    android:minResizeWidth="160dp"
-    android:minResizeHeight="110dp"
-    android:maxResizeWidth="250dp"
-    android:maxResizeHeight="200dp"
+    android:minResizeHeight="51dp"
+    android:maxResizeHeight="150dp"
     android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen"
     tools:targetApi="s"/>
