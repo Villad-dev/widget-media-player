@@ -6,108 +6,118 @@
     android:background="?attr/colorError"
     android:theme="@style/AppTheme">
 
-    <TextView
-        android:id="@+id/artist_name"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="2dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="?attr/colorSecondary"
-        android:textSize="16sp"
-        tools:ignore="SmallSp" />
-
-    <TextView
-        android:id="@+id/song_name"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:layout_below="@id/artist_name"
-        android:layout_marginTop="2dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="?attr/colorOnSecondary"
-        android:textSize="12sp" />
-
     <LinearLayout
-        android:id="@+id/mainBlock"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@id/song_name"
+        android:layout_height="126dp"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/album_cover_image"
+        android:src="@drawable/pink_floyd"
+        tools:ignore="ImageContrastCheck" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/album_cover_image"
-            android:src="@drawable/pink_floyd"
-            tools:ignore="ImageContrastCheck" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:ignore="RtlSymmetry">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/artist_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="16sp"
+            tools:ignore="SmallSp" />
 
-            <ImageView
-                android:id="@+id/leftButton"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/stopPlayButton"
-                android:contentDescription="@string/left_button"
-                android:maxWidth="42dp"
-                android:src="@drawable/skip_back"
-                tools:ignore="ImageContrastCheck" />
+        <TextView
+            android:id="@+id/song_name"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_below="@id/artist_name"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSecondary"
+            android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/stopPlayButton"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_centerVertical="true"
-                android:layout_margin="10dp"
-                android:layout_centerInParent="true"
-                android:contentDescription="@string/stop_play_button"
-                android:src="@drawable/play"
-                tools:ignore="ImageContrastCheck" />
-
-            <ImageView
-                android:id="@+id/rightButton"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/stopPlayButton"
-                android:contentDescription="@string/right_button"
-                android:src="@drawable/skip_forward"
-                tools:ignore="ImageContrastCheck" />
-
-            <ImageView
-                android:id="@+id/resetButton"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/rightButton"
-                android:contentDescription="@string/right_button"
-                android:src="@drawable/reset"
-                tools:ignore="ImageContrastCheck" />
+        <LinearLayout
+            android:id="@+id/mainBlock"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_below="@id/song_name"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="0dp">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="40dp">
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/leftButton"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/left_button"
+                    android:maxWidth="42dp"
+                    android:src="@drawable/skip_back"
+                    tools:ignore="ImageContrastCheck" />
+
+                <ImageView
+                    android:id="@+id/stopPlayButton"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_toEndOf="@id/leftButton"
+                    android:layout_margin="10dp"
+                    android:contentDescription="@string/stop_play_button"
+                    android:src="@drawable/play"
+                    tools:ignore="ImageContrastCheck" />
+
+                <ImageView
+                    android:id="@+id/rightButton"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/stopPlayButton"
+                    android:contentDescription="@string/right_button"
+                    android:src="@drawable/skip_forward"
+                    tools:ignore="ImageContrastCheck" />
+
+                <ImageView
+                    android:id="@+id/resetButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_toEndOf="@id/rightButton"
+                    android:contentDescription="@string/right_button"
+                    android:src="@drawable/reset"
+                    tools:ignore="ImageContrastCheck" />
+
             </RelativeLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="15dp">
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp" />
         </RelativeLayout>
+    </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

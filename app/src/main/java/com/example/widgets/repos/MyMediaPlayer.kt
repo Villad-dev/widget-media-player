@@ -1,60 +1,29 @@
+import android.content.Context
 import android.media.MediaPlayer
-import java.io.IOException
+class MyMediaPlayer(private val context: Context, private var audioFilePath: Int) : MediaPlayer() {
 
-class MyMediaPlayer(private var audioFilePath: String) : MediaPlayer() {
-
-    init {
-        try {
-            setDataSource(audioFilePath)
-            prepare()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
-    override fun setOnCompletionListener(listener: OnCompletionListener?) {
-
-        super.setOnCompletionListener(listener)
-    }
-
-    override fun setOnErrorListener(listener: OnErrorListener?) {
-
-        super.setOnErrorListener(listener)
-    }
-
-    fun play() {
+    fun play(onStartPlaying: () -> Unit, onPlaying: () -> Unit) {
         if (!isPlaying) {
-            start()
+            println("Not playing!!!")
+            //start()
+            onStartPlaying()
+        } else {
+            println("Playing!!!")
+            //pause()
+            onPlaying()
         }
     }
 
     override fun pause() {
         if (isPlaying) {
-            pause()
+            super.pause()
         }
     }
 
     override fun stop() {
         if (isPlaying) {
-            stop()
+            super.stop()
             reset()
-            try {
-                setDataSource(audioFilePath) // Reset the DataSource
-                prepare()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    fun setAudioFilePath(newAudioFilePath: String) {
-        this.audioFilePath = newAudioFilePath
-        reset()
-        try {
-            setDataSource(audioFilePath) // Set new DataSource
-            prepare()
-        } catch (e: IOException) {
-            e.printStackTrace()
         }
     }
 }
