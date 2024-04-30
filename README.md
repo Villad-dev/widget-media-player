@@ -5,7 +5,7 @@ The Kotlin Media Player Widget is a customizable media player component written 
 - Restart audio 
 - Using links as reference to music
 - Progress bar(Non interactable)
-###Usage
+### Usage
 Here provided the review on working device
 ## Small Widget (5x1)
 <img src="/app/src/main/res/drawable/screenshot_small.png" alt="Small widget" width="200" height="57">
